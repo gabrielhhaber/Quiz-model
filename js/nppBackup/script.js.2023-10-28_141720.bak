@@ -1,0 +1,62 @@
+let questions=[
+	{
+		text: "Qual é o nome do SSD mais vendido do mundo, de interface NvMe?",
+		answers: ["WD Green", "Seagate Expansion", "Kingston Nv2", "Sandisk Plus"],
+		correct: 2,
+		errorMessage: "Na verdade, o SSD mais vendido do mundo de interface NvMe é o Kingston Nv2, que já teve outras versões muito conhecidas, como o Kingston Nv1."
+	},
+	{
+		text: "Qual é a velocidade máxima suportada por um SSD NvMe?",
+		answers: ["500mb/s", "1350mb/s", "3500mb/s", "7300mb/s"],
+		correct: 3,
+		errorMessage: "Na verdade, os SSDs de interface NvMe são os mais rápidos existentes, podendo chegar a até 7300mb/s de velocidade. Para se ter uma ideia, os SSDs sata, um padrão mais antigo, chegam a apenas 525mb/s."
+	},
+];
+let score=0;
+let questionsDiv=document.getElementById("questions");
+function showQuestion(question) {
+	let questionPos=questions.indexOf(question);
+	let questionsNumber=questions.length;
+	let questionBody=`
+		<h2 id="question-number">${questionPos}/${questionsNumber}</h2>
+		<p class="question-text">${question.text}</p>
+		<ul class="answers-list">
+	`;
+	question.answers.forEach((answer) => {
+		questionBody+=`
+			<li class="answer">
+				<button class="answer-btn">${answer}</button>
+			</li>
+		`;
+	});
+	questionBody+=`
+		</ul>
+		<div id="question-message" aria-live="assertive"></div>
+	`;
+	let questionEl=document.createElement("div");
+	questionEl.setAttribute("id, "question");
+	questionEl.innerHTML=questionBody;
+	let answerButtons=questionEl.querySelectorAll("button.answer-btn");
+	answerButtons.forEach((answerButton) => {
+		answerButton.addEventListener("click", (evt) => {
+			let answer=answerButton.innerHTML;
+			checkAnswer(question, answer);
+		});
+	});
+	questionsDiv.appendChild(questionEl);
+}
+function checkAnswer(question, answer) {
+	let questionEl=document.getElementById("question");
+	let answerPos=question.answers.indexOf(answer);
+	let messageDiv=questionEl.getElementById("question-message");
+	let message;
+	if(answerPos===question.correct) {
+		message="Parabéns, você acertou!";
+		score+=1;
+	}
+	else {
+		message="Que pena, você errou! "+question.errorMessage;
+	}
+	
+}
+showQuestion(questions[0]);

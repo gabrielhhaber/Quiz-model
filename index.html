@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" href="css/style.css"/>
+		<title>Quiz</title>
+	</head>
+	<body>
+		<header>
+			<h1 id="title">Quiz</h1>
+		</header>
+		<main>
+			<p>Bem-vindo ao novo sistema de quiz feito em JavaScript! Responda as perguntas abaixo e clique em próxima para continuar.</p>
+			<div id="game">
+				<div id="question-container"></div>
+				<div id="question-message" tabindex="-1"></div>
+				<div id="next-question-container">
+					<button id="next-question-btn" disabled>
+						Próxima pergunta 
+						<span class="arrow-right" aria-hidden=true">➡</span>
+					</button>
+				</div>
+				<div id="end-game-container" class="hidden">
+					<button id="end-game-btn">
+						Finalizar jogo
+					</button>
+				</div>
+			</div>
+		</main>
+		<script src="js/script.js"></script>
+	</body>
+</html>
