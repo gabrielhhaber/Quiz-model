@@ -3,18 +3,16 @@ let questions=[
 		text: "Qual é o nome do SSD mais vendido do mundo, de interface NvMe?",
 		answers: ["WD Green", "Seagate Expansion", "Kingston Nv2", "Sandisk Plus"],
 		correct: 2,
-		errorMessage: "Na verdade, o SSD mais vendido do mundo de interface NvMe é o Kingston Nv2, que já teve outras versões muito conhecidas, como o Kingston Nv1."
 	},
 	{
 		text: "Qual é a velocidade máxima suportada por um SSD NvMe?",
 		answers: ["500mb/s", "1350mb/s", "3500mb/s", "7300mb/s"],
 		correct: 3,
-		errorMessage: "Na verdade, os SSDs de interface NvMe são os mais rápidos existentes, podendo chegar a até 7300mb/s de velocidade. Para se ter uma ideia, os SSDs sata, um padrão mais antigo, chegam a apenas 525mb/s."
 	},
 ];
 let currentQuestion=0;
 let score=0;
-let questionEl=document.getElementById("question-container");
+let questionEl=document.querySelector(".question");
 let messageDiv=document.getElementById("question-message");
 let nextButton=document.getElementById("next-question-btn");
 let finishDiv=document.getElementById("end-game-container");
@@ -22,14 +20,16 @@ let finishButton=document.getElementById("end-game-btn");
 function showQuestion(question) {
 	let questionPos=questions.indexOf(question)+1;
 	let questionsNumber=questions.length;
+	questionEl.setAttribute("id", "question-"+questionPos);
 	let questionBody=`
 		<h2 id="question-number" tabindex="-1">${questionPos}/${questionsNumber}</h2>
 		<p class="question-text">${question.text}</p>
 		<ul class="answers-list">
 	`;
-	question.answers.forEach((answer) => {
+	question.answers.forEach((answer, index) => {
+		let answerPos=index+1;
 		questionBody+=`
-			<li class="answer">
+			<li class="answer" id="answer-${answerPos}">
 				<button class="answer-btn">${answer}</button>
 			</li>
 		`;
@@ -54,11 +54,17 @@ function checkAnswer(question, answer) {
 	let answerPos=question.answers.indexOf(answer);
 	let message;
 	if(answerPos===question.correct) {
-		message="Parabéns, você acertou!";
+		message=`
+			Parabéns, você acertou!
+		`;
 		score+=1;
 	}
 	else {
-		message="Que pena, você errou! "+question.errorMessage;
+		let correctAnswer=question.answers[question.correct];
+		message=`
+			Que pena, você errou! A resposta certa era: 
+			<span class="correct-answer">${correctAnswer}</span>
+		`;
 	}
 	messageDiv.innerHTML=message;
 	messageDiv.focus();
