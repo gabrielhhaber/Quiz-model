@@ -1,13 +1,63 @@
 let questions=[
 	{
-		text: "Qual é o nome do SSD mais vendido do mundo, de interface NvMe?",
-		answers: ["WD Green", "Seagate Expansion", "Kingston Nv2", "Sandisk Plus"],
-		correct: 2,
+		text: "A dengue é causada por um vírus transmitido por mosquitos.",
+		answers: "true-false",
+		correct: 1
 	},
 	{
-		text: "Qual é a velocidade máxima suportada por um SSD NvMe?",
-		answers: ["500mb/s", "1350mb/s", "3500mb/s", "7300mb/s"],
-		correct: 3,
+		text: "A única maneira de contrair dengue é ser picado por um mosquito infectado.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A dengue pode ser transmitida de pessoa para pessoa.",
+		answers: "true-false",
+		correct: 2
+	},
+	{
+		text: "Não existe vacina disponível para prevenir a dengue.",
+		answers: "true-false",
+		correct: 2
+	},
+	{
+		text: "A dengue é mais comum em áreas tropicais e subtropicais.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "Os sintomas comuns da dengue incluem febre alta, dor de cabeça e erupções cutâneas.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A dengue é uma doença endêmica, o que significa que está sempre presente em determinadas regiões.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A dengue é uma doença bacteriana.",
+		answers: "true-false",
+		correct: 2
+	},
+	{
+		text: "10.	A dengue pode levar à morte em casos graves.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "Qual é o principal vetor da dengue?",
+		answers: ["Anofeles", "Aedes Aegypti", "Mosca", "Culex", "Aedes albopictus"],
+		correct: 2
+	},
+	{
+		text: "Quais são os sintomas comuns da dengue?",
+		answers: ["Febre alta, dor de cabeça, dor muscular, erupção cutânea", "Tosse persistente, dificuldade respiratória, febre moderada", "Dor de estômago, náuseas, tontura, olhos vermelhos", "Dor nas articulações, garganta inflamada, nariz entupido, fadiga"],
+		correct: 1
+	},
+	{
+		text: "Qual é o período de incubação da dengue após a picada do mosquito infectado?",
+		answers: ["De 2 a 5 dias", "De uma a duas semanas", "De 3 a 4 semanas", "1 mês"],
+		correct: 1
 	},
 ];
 let currentQuestion=0;
@@ -26,13 +76,27 @@ function showQuestion(question) {
 		<p class="question-text">${question.text}</p>
 		<ul class="answers-list">
 	`;
-	question.answers.forEach((answer, index) => {
-		let answerPos=index+1;
-		questionBody+=`
-			<li class="answer" id="answer-${answerPos}">
-				<button class="answer-btn">${answer}</button>
-			</li>
-		`;
+	let answersIsArray=isArray(question.answers);
+	if(answersIsArray) {
+		question.answers.forEach((answer, index) => {
+			questionBody+=`
+				<li class="answer ${answerClass}" id="answer-${answerPos}">
+					<button class="answer-btn">${answer}</button>
+				</li>
+				<li class="answer-2" id="answer-false">
+					<button class="answer-btn">${answer}</button>
+				</li>
+			`;
+		});
+	}
+	else if(answers==="true-false") {
+			questionBody+=`
+				<li class="answer" id="answer-${answerPos}">
+					<button class="answer-btn">${answer}</button>
+				</li>
+			`;
+	}
+		}
 	});
 	questionBody+=`
 		</ul>
@@ -80,7 +144,7 @@ nextButton.addEventListener("click", (evt) => {
 		messageDiv.focus();
 		questionEl.innerHTML="";
 		nextButton.setAttribute("disabled", "");
-		finishDiv.classList.remove("hidden");
+		finishDiv.hidden=false;
 	}
 	else {
 		messageDiv.innerHTML="";
