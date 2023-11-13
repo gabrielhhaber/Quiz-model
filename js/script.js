@@ -51,14 +51,99 @@ let questions=[
 	},
 	{
 		text: "Quais são os sintomas comuns da dengue?",
-		answers: ["Febre alta, dor de cabeça, dor muscular, erupção cutânea", "Tosse persistente, dificuldade respiratória, febre moderada", "Dor de estômago, náuseas, tontura, olhos vermelhos", "Dor nas articulações, garganta inflamada, nariz entupido, fadiga"],
-		correct: 1
+		answers: ["Tosse persistente, dificuldade respiratória, febre moderada", "Febre alta, dor de cabeça, dor muscular, erupção cutânea", "Dor de estômago, náuseas, tontura, olhos vermelhos", "Dor nas articulações, garganta inflamada, nariz entupido, fadiga"],
+		correct: 2
 	},
 	{
 		text: "Qual é o período de incubação da dengue após a picada do mosquito infectado?",
 		answers: ["De 2 a 5 dias", "De uma a duas semanas", "De 3 a 4 semanas", "1 mês"],
 		correct: 1
 	},
+	{
+		text: "O que significa DHF, uma complicação grave da dengue?",
+		answers: ["Dengue Hemorrágica Grave", "Doença Hemorrágica da Febre", "Doença Hemorrágica Fatal", "Distúrbio Hemorrágico Febril"],
+		correct: 2
+	},
+	{
+		text: "Qual é a melhor maneira de prevenir a propagação da dengue em áreas endêmicas?",
+		answers: ["Consumir grandes quantidades de vitamina C", "Tomar antibióticos regularmente", "Usar repelente, roupas que cubram o corpo e telas em janelas", "Evitar a ingestão de carne vermelha"],
+		correct: 3
+	},
+	{
+		text: "Qual das seguintes afirmações sobre os sintomas da dengue está incorreta?",
+		answers: ["Os sintomas da dengue incluem febre alta, dor de cabeça e dor muscular.", "A maioria dos casos de dengue é assintomática, ou seja, não apresenta sintomas.", "A dengue pode causar sangramento nas gengivas e sangue nas fezes.", "A dengue nunca evolui para complicações graves."],
+		correct: 3
+	},
+	{
+		text: "Qual é a relação entre a dengue e a febre chikungunya?",
+		answers: ["São causadas pelos mesmos vírus e têm os mesmos sintomas", "São transmitidas pelo mesmo mosquito, mas são causadas por vírus diferentes", "A dengue é uma forma mais branda da febre chikungunya", "A febre chikungunya é uma complicação da dengue"],
+		correct: 1
+	},
+	{
+		text: "Qual dos seguintes não é um sintoma comum da dengue?",
+		answers: ["Febre alta", "Erupções cutâneas", "Dor de cabeça", "Tosse persistente"],
+		correct: 1
+	},
+	{
+		text: "Qual é a estratégia atual da Organização Mundial da Saúde (OMS) em relação à dengue?",
+		answers: ["Erradicar o mosquito Aedes aegypti em todo o mundo", "Eliminar a transmissão da dengue até 2030 por meio de medidas de controle e pesquisa de vacinas mais eficazes", "Recomendar a administração regular de antibióticos para prevenção da dengue", "Ignorar a dengue devido à sua baixa mortalidade"],
+		correct: 2
+	},
+	{
+		text: "Qual é a principal diferença entre a dengue clássica e a dengue hemorrágica?",
+		answers: ["A dengue clássica é mais comum em crianças, enquanto a dengue hemorrágica afeta principalmente adultos", "A dengue clássica é mais leve e causa apenas febre e dor de cabeça", "A dengue hemorrágica envolve complicações graves, como sangramento e choque, e requer tratamento médico urgente", "A dengue clássica ocorre apenas em áreas urbanas"],
+		correct: 3
+	},
+	{
+		text: "A imunidade contra um sorotipo da dengue proporciona automaticamente proteção contra os outros três sorotipos.",
+		answers: "true-false",
+		correct: 2
+	},
+	{
+		text: "A dengue hemorrágica é mais comum em pessoas que já tiveram dengue anteriormente.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A transmissão vertical da dengue ocorre quando a mãe infectada transmite o vírus ao feto durante a gravidez.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A febre que dá nome à doença é um dos sintomas mais leves da dengue.",
+		answers: "true-false",
+		correct: 2
+	},
+	{
+		text: "A administração de aspirina pode ser eficaz no tratamento da dengue.",
+		answers: "true-false",
+		correct: 2
+	},
+	{
+		text: "A infecção prévia por um tipo de vírus da dengue pode aumentar o risco de desenvolver dengue grave se infectado por outro tipo.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A dengue é uma das doenças transmitidas que mais cresceu nos últimos tempos, devido a fatores como urbanização rápida, viagens internacionais e mudanças climáticas, que favorecem a proliferação do mosquito.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A dengue é uma doença que pode levar a complicações graves, como a síndrome de choque da dengue, que é caracterizada por hipotensão, hemorragia e disfunção de múltiplos órgãos.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "A Organização Mundial da Saúde (OMS) considera a dengue como uma das principais doenças mais transmitidas entre 100 países de todos os continentes (exceto Europa), afetando milhões de pessoas a cada ano.",
+		answers: "true-false",
+		correct: 1
+	},
+	{
+		text: "O vírus da dengue possui quatro sorotipos diferentes (DENV-1, DENV-2, DENV-3 e DENV-4), e a infecção por um sorotipo confere imunidade vitalícia contra todos os outros sorotipos.",
+		answers: "true-false",
+		correct: 2
+	}
 ];
 let currentQuestion=0;
 let score=0;
