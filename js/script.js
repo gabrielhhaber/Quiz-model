@@ -1,4 +1,4 @@
-let questions=[
+let questions = [
 	{
 		text: "A dengue é causada por um vírus transmitido por mosquitos.",
 		answers: "true-false",
@@ -145,32 +145,32 @@ let questions=[
 		correct: 2
 	}
 ];
-let currentQuestion=0;
-let score=0;
-let currentLevel=1;
-let answeredLevelQuestions=0;
-let questionEl=document.querySelector(".question");
-let messageDiv=document.getElementById("question-message");
-let nextButton=document.getElementById("next-question-btn");
-let levelDialog=document.getElementById("level-dialog");
-let continueButton=document.querySelector("#level-dialog #level-continue");
-let endDialog=document.getElementById("end-game-dialog");
-let playAgainButton=document.getElementById("play-again-btn");
-let endGameButton=document.getElementById("end-game-btn");
+let currentQuestion = 0;
+let score = 0;
+let currentLevel = 1;
+let answeredLevelQuestions = 0;
+let questionEl = document.querySelector(".question");
+let messageDiv = document.getElementById("question-message");
+let nextButton = document.getElementById("next-question-btn");
+let levelDialog = document.getElementById("level-dialog");
+let continueButton = document.querySelector("#level-dialog #level-continue");
+let endDialog = document.getElementById("end-game-dialog");
+let playAgainButton = document.getElementById("play-again-btn");
+let endGameButton = document.getElementById("end-game-btn");
 function showQuestion(question) {
 	answeredLevelQuestions+=1;
-	let questionPos=questions.indexOf(question)+1;
-	let numberOfQuestions=questions.length;
+	let questionPos = questions.indexOf(question)+1;
+	let numberOfQuestions = questions.length;
 	questionEl.setAttribute("id", "question-"+questionPos);
-	let questionBody=`
+	let questionBody = `
 		<h2 id="question-number">${questionPos}/${numberOfQuestions}</h2>
 		<p class="question-text" tabindex="-1">${question.text}</p>
 		<ul class="answers-list">
 	`;
-	let answersIsArray=Array.isArray(question.answers);
+	let answersIsArray = Array.isArray(question.answers);
 	if(answersIsArray) {
 		question.answers.forEach((answer, index) => {
-			let answerPos=index+1;
+			let answerPos = index+1;
 			questionBody+=`
 				<li class="answer" id="answer-${answerPos}">
 					<button class="answer-btn">${answer}</button>
@@ -193,20 +193,20 @@ function showQuestion(question) {
 		</ul>
 	`;
 	questionEl.innerHTML=questionBody;
-	let answerButtons=questionEl.querySelectorAll("button.answer-btn");
+	let answerButtons = questionEl.querySelectorAll("button.answer-btn");
 	answerButtons.forEach((answerButton) => {
 		answerButton.addEventListener("click", (evt) => {
-			let answer=answerButton.innerHTML;
+			let answer = answerButton.innerHTML;
 			checkAnswer(question, answer);
 		});
 	});
 }
 function checkAnswer(question, answer) {
-	let answerButtons=document.querySelectorAll("button.answer-btn");
+	let answerButtons = document.querySelectorAll("button.answer-btn");
 	answerButtons.forEach((answerButton) => {
 		answerButton.setAttribute("disabled", "");
 	});
-	let answerPos=question.answers.indexOf(answer);
+	let answerPos = question.answers.indexOf(answer);
 	let message;
 	if(answerPos === question.correct-1) {
 		message=`
@@ -215,7 +215,7 @@ function checkAnswer(question, answer) {
 		score+=1;
 	}
 	else {
-		let correctAnswer=question.answers[question.correct-1];
+		let correctAnswer = question.answers[question.correct-1];
 		message=`
 			Que pena, você errou! A resposta certa era: 
 			<span class="correct-answer">${correctAnswer}</span>
@@ -228,7 +228,7 @@ function checkAnswer(question, answer) {
 function showLevelMessage() {
 	currentLevel+=1;
 	answeredLevelQuestions=0;
-	let levelElement=document.getElementById("current-level");
+	let levelElement = document.getElementById("current-level");
 	levelElement.innerHTML=currentLevel;
 	levelDialog.hidden=false;
 	levelDialog.setAttribute("open", "");
@@ -239,10 +239,10 @@ function showLevelMessage() {
 nextButton.addEventListener("click", (evt) => {
 	currentQuestion+=1;
 	questionEl.innerHTML="";
-	let numberOfQuestions=questions.length;
+	let numberOfQuestions = questions.length;
 	if(currentQuestion === numberOfQuestions) {
 		questionEl.innerHTML="";
-		let finalScore=document.getElementById("final-score");
+		let finalScore = document.getElementById("final-score");
 		finalScore.innerHTML=score;
 		endDialog.hidden=false;
 		endDialog.setAttribute("open", "");
@@ -252,7 +252,7 @@ nextButton.addEventListener("click", (evt) => {
 		messageDiv.innerHTML="";
 		if(answeredLevelQuestions < 10) {
 			showQuestion(questions[currentQuestion]);
-			let questionText=document.querySelector(".question-text");
+			let questionText = document.querySelector(".question-text");
 			questionText.focus();
 			nextButton.setAttribute("disabled", "");
 		}
@@ -268,25 +268,25 @@ continueButton.addEventListener("click", (evt) => {
 	levelDialog.removeAttribute("open");
 	levelDialog.hidden=true;
 	showQuestion(questions[currentQuestion]);
-	let questionText=document.querySelector(".question-text");
+	let questionText = document.querySelector(".question-text");
 	questionText.focus();
 });
 endGameButton.addEventListener("click", (evt) => {
 	window.close();
 });
-let actionContainers=document.querySelectorAll(".dialog-actions");
+let actionContainers = document.querySelectorAll(".dialog-actions");
 actionContainers.forEach((actionContainer) => {
-	let actions=Array.from(actionContainer.children);
+	let actions = Array.from(actionContainer.children);
 	actions.forEach((action) => {
 		action.addEventListener("keydown", (evt) => {
 			if(evt.key === "Tab" && !evt.shiftKey) {
 				evt.preventDefault();
-				let elementToFocus=action.nextElementSibling ? action.nextElementSibling : actions[0];
+				let elementToFocus = action.nextElementSibling ? action.nextElementSibling : actions[0];
 				elementToFocus.focus();
 			}
 			else if(evt.key === "Tab" && evt.shiftKey) {
 				evt.preventDefault();
-				let elementToFocus=action.previousElementSibling ? action.previousElementSibling : actions[actions.length-1];
+				let elementToFocus = action.previousElementSibling ? action.previousElementSibling : actions[actions.length-1];
 				elementToFocus.focus();
 			}
 		});
