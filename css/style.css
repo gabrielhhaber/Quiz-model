@@ -1,3 +1,6 @@
 ul.answers-list {
 	list-style-type: none;
 }
+#play-again-btn {
+	appearance: button;
+}

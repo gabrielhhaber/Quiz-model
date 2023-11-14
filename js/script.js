@@ -72,17 +72,17 @@ let questions=[
 	{
 		text: "Qual das seguintes afirmações sobre os sintomas da dengue está incorreta?",
 		answers: ["Os sintomas da dengue incluem febre alta, dor de cabeça e dor muscular.", "A maioria dos casos de dengue é assintomática, ou seja, não apresenta sintomas.", "A dengue pode causar sangramento nas gengivas e sangue nas fezes.", "A dengue nunca evolui para complicações graves."],
-		correct: 3
+		correct: 2
 	},
 	{
 		text: "Qual é a relação entre a dengue e a febre chikungunya?",
 		answers: ["São causadas pelos mesmos vírus e têm os mesmos sintomas", "São transmitidas pelo mesmo mosquito, mas são causadas por vírus diferentes", "A dengue é uma forma mais branda da febre chikungunya", "A febre chikungunya é uma complicação da dengue"],
-		correct: 1
+		correct: 2
 	},
 	{
 		text: "Qual dos seguintes não é um sintoma comum da dengue?",
 		answers: ["Febre alta", "Erupções cutâneas", "Dor de cabeça", "Tosse persistente"],
-		correct: 1
+		correct: 4
 	},
 	{
 		text: "Qual é a estratégia atual da Organização Mundial da Saúde (OMS) em relação à dengue?",
@@ -147,12 +147,18 @@ let questions=[
 ];
 let currentQuestion=0;
 let score=0;
+let currentLevel=1;
+let answeredLevelQuestions=0;
 let questionEl=document.querySelector(".question");
 let messageDiv=document.getElementById("question-message");
 let nextButton=document.getElementById("next-question-btn");
-let finishDiv=document.getElementById("end-game-container");
-let finishButton=document.getElementById("end-game-btn");
+let levelDialog=document.getElementById("level-dialog");
+let continueButton=document.querySelector("#level-dialog #level-continue");
+let endGameDialog=document.getElementById("end-game-dialog");
+let playAgainButton=document.getElementById("play-again-btn");
+let endGameButton=document.getElementById("end-game-btn");
 function showQuestion(question) {
+	answeredLevelQuestions+=1;
 	let questionPos=questions.indexOf(question)+1;
 	let numberOfQuestions=questions.length;
 	questionEl.setAttribute("id", "question-"+questionPos);
@@ -219,26 +225,50 @@ function checkAnswer(question, answer) {
 	messageDiv.focus();
 	nextButton.removeAttribute("disabled");
 }
-showQuestion(questions[currentQuestion]);
+function showLevelMessage() {
+	currentLevel+=1;
+	answeredLevelQuestions=0;
+	let levelElement=document.getElementById("current-level");
+	levelElement.innerHTML=currentLevel;
+	levelDialog.hidden=false;
+	levelDialog.setAttribute("open", "");
+	continueButton.focus();
+	nextButton.setAttribute("disabled", "");
+}
+	showQuestion(questions[currentQuestion]);
 nextButton.addEventListener("click", (evt) => {
 	currentQuestion+=1;
 	questionEl.innerHTML="";
 	let numberOfQuestions=questions.length;
 	if(currentQuestion===numberOfQuestions) {
-		messageDiv.innerHTML="Parabéns! Você chegou ao fim do jogo. Sua pontuação total foi "+score+".";
-		messageDiv.focus();
 		questionEl.innerHTML="";
-		nextButton.setAttribute("disabled", "");
-		finishDiv.hidden=false;
+		endDialog.hidden=false;
+		endDialog.setAttribute("open", "");
+		playAgainButton.focus();
 	}
 	else {
 		messageDiv.innerHTML="";
-		showQuestion(questions[currentQuestion]);
-		let questionText=document.querySelector(".question-text");
-		questionText.focus();
-		nextButton.setAttribute("disabled", "");
+		if(answeredLevelQuestions<10) {
+			showQuestion(questions[currentQuestion]);
+			let questionText=document.querySelector(".question-text");
+			questionText.focus();
+			nextButton.setAttribute("disabled", "");
+		}
+		else {
+			showLevelMessage();
+		}
 	}
 });
 finishButton.addEventListener("click", (evt) => {
 	window.close();
 });
+continueButton.addEventListener("click", (evt) => {
+	levelDialog.removeAttribute("open");
+	levelDialog.hidden=true;
+	showQuestion(questions[currentQuestion]);
+	let questionText=document.querySelector(".question-text");
+	questionText.focus();
+});
+endGameButton.addEventListener("click", (evt) => {
+	window.close();
+}
