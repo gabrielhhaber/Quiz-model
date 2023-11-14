@@ -20,11 +20,6 @@
 						Próxima pergunta 
 					</button>
 				</div>
-				<div id="end-game-container" hidden>
-					<button id="end-game-btn">
-						Finalizar jogo
-					</button>
-				</div>
 				<dialog id="level-dialog" aria-labelledby="level-h2" aria-modal="true" hidden>
 					<h2 class="dialog-heading" id="level-h2">
 						Você passou para o nível 
@@ -36,6 +31,23 @@
 						</button>
 					</div>
 				</dialog>
+				<dialog id="end-game-dialog" aria-labelledby="end-game-h2" aria-describedby="end-game-content" aria-modal="true" hidden>
+					<h2 class="dialog-heading" id="end-game-h2">Parabéns! Você chegou ao fim do jogo</h2>
+					<div class="dialog-content" id="end-game-content">
+						<p>Você acabou de terminar o jogo do quiz sobre a dengue! Sua pontuação final foi 
+						<span id="final-score"></span> 
+						pontos.
+					</p>
+				</div>
+				<div class="dialog-actions">
+					<a role="button" id="play-again-btn" href="index.html">
+						Jogar novamente
+					</a>
+					<button id="end-game-btn">
+						Sair do jogo
+					</button>
+				</div>
+			</dialog>
 			</div>
 		</main>
 		<script src="js/script.js"></script>

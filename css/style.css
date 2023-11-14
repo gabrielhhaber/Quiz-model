@@ -1,6 +1,9 @@
 ul.answers-list {
 	list-style-type: none;
 }
+.dialog-actions button, .dialog-actions a {
+	display: block;
+}
 #play-again-btn {
 	appearance: button;
 }

@@ -154,7 +154,7 @@ let messageDiv=document.getElementById("question-message");
 let nextButton=document.getElementById("next-question-btn");
 let levelDialog=document.getElementById("level-dialog");
 let continueButton=document.querySelector("#level-dialog #level-continue");
-let endGameDialog=document.getElementById("end-game-dialog");
+let endDialog=document.getElementById("end-game-dialog");
 let playAgainButton=document.getElementById("play-again-btn");
 let endGameButton=document.getElementById("end-game-btn");
 function showQuestion(question) {
@@ -178,7 +178,7 @@ function showQuestion(question) {
 			`;
 		});
 	}
-	else if(question.answers==="true-false") {
+	else if(question.answers === "true-false") {
 		question.answers=["Verdadeiro", "Falso"];
 		questionBody+=`
 			<li class="answer answer-true" id="answer-1">
@@ -208,7 +208,7 @@ function checkAnswer(question, answer) {
 	});
 	let answerPos=question.answers.indexOf(answer);
 	let message;
-	if(answerPos===question.correct-1) {
+	if(answerPos === question.correct-1) {
 		message=`
 			Parabéns, você acertou!
 		`;
@@ -240,15 +240,17 @@ nextButton.addEventListener("click", (evt) => {
 	currentQuestion+=1;
 	questionEl.innerHTML="";
 	let numberOfQuestions=questions.length;
-	if(currentQuestion===numberOfQuestions) {
+	if(currentQuestion === numberOfQuestions) {
 		questionEl.innerHTML="";
+		let finalScore=document.getElementById("final-score");
+		finalScore.innerHTML=score;
 		endDialog.hidden=false;
 		endDialog.setAttribute("open", "");
 		playAgainButton.focus();
 	}
 	else {
 		messageDiv.innerHTML="";
-		if(answeredLevelQuestions<10) {
+		if(answeredLevelQuestions < 10) {
 			showQuestion(questions[currentQuestion]);
 			let questionText=document.querySelector(".question-text");
 			questionText.focus();
@@ -259,7 +261,7 @@ nextButton.addEventListener("click", (evt) => {
 		}
 	}
 });
-finishButton.addEventListener("click", (evt) => {
+endGameButton.addEventListener("click", (evt) => {
 	window.close();
 });
 continueButton.addEventListener("click", (evt) => {
@@ -271,4 +273,22 @@ continueButton.addEventListener("click", (evt) => {
 });
 endGameButton.addEventListener("click", (evt) => {
 	window.close();
-}
+});
+let actionContainers=document.querySelectorAll(".dialog-actions");
+actionContainers.forEach((actionContainer) => {
+	let actions=Array.from(actionContainer.children);
+	actions.forEach((action) => {
+		action.addEventListener("keydown", (evt) => {
+			if(evt.key === "Tab" && !evt.shiftKey) {
+				evt.preventDefault();
+				let elementToFocus=action.nextElementSibling ? action.nextElementSibling : actions[0];
+				elementToFocus.focus();
+			}
+			else if(evt.key === "Tab" && evt.shiftKey) {
+				evt.preventDefault();
+				let elementToFocus=action.previousElementSibling ? action.previousElementSibling : actions[actions.length-1];
+				elementToFocus.focus();
+			}
+		});
+	});
+});
