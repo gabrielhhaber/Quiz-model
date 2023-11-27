@@ -45,6 +45,11 @@ let questions = [
 		correct: 1
 	},
 	{
+		text: "A picada do mosquito Aedes aegypti ocorre principalmente durante a noite.",
+		answers: "true-false",
+		correct: 2
+	},
+	{
 		text: "Qual é o principal vetor da dengue?",
 		answers: ["Anofeles", "Aedes Aegypti", "Mosca", "Culex", "Aedes albopictus"],
 		correct: 2
@@ -204,7 +209,7 @@ function showQuestion(question) {
 function checkAnswer(question, answer) {
 	let answerButtons = document.querySelectorAll("button.answer-btn");
 	answerButtons.forEach((answerButton) => {
-		answerButton.setAttribute("disabled", "");
+		hideInSteps(answerButton);
 	});
 	let answerPos = question.answers.indexOf(answer);
 	let message;
@@ -223,7 +228,7 @@ function checkAnswer(question, answer) {
 	}
 	messageDiv.innerHTML=message;
 	messageDiv.focus();
-	nextButton.removeAttribute("disabled");
+	showCompletely(nextButton);
 }
 function showLevelMessage() {
 	currentLevel+=1;
@@ -233,9 +238,19 @@ function showLevelMessage() {
 	levelDialog.hidden=false;
 	levelDialog.setAttribute("open", "");
 	continueButton.focus();
-	nextButton.setAttribute("disabled", "");
+	hideInSteps(nextButton);
 }
-	showQuestion(questions[currentQuestion]);
+function hideInSteps(element) {
+	element.classList.add("visually-hidden");
+	window.setTimeout(() => {
+		element.hidden=true;
+	}, 150);
+}
+function showCompletely(element) {
+	element.hidden=false;
+	element.classList.remove("visually-hidden");
+}
+showQuestion(questions[currentQuestion]);
 nextButton.addEventListener("click", (evt) => {
 	currentQuestion+=1;
 	questionEl.innerHTML="";
@@ -254,7 +269,7 @@ nextButton.addEventListener("click", (evt) => {
 			showQuestion(questions[currentQuestion]);
 			let questionText = document.querySelector(".question-text");
 			questionText.focus();
-			nextButton.setAttribute("disabled", "");
+			hideInSteps(nextButton);
 		}
 		else {
 			showLevelMessage();
@@ -274,21 +289,19 @@ continueButton.addEventListener("click", (evt) => {
 endGameButton.addEventListener("click", (evt) => {
 	window.close();
 });
-let actionContainers = document.querySelectorAll(".dialog-actions");
-actionContainers.forEach((actionContainer) => {
-	let actions = Array.from(actionContainer.children);
-	actions.forEach((action) => {
-		action.addEventListener("keydown", (evt) => {
-			if(evt.key === "Tab" && !evt.shiftKey) {
-				evt.preventDefault();
-				let elementToFocus = action.nextElementSibling ? action.nextElementSibling : actions[0];
-				elementToFocus.focus();
-			}
-			else if(evt.key === "Tab" && evt.shiftKey) {
-				evt.preventDefault();
-				let elementToFocus = action.previousElementSibling ? action.previousElementSibling : actions[actions.length-1];
-				elementToFocus.focus();
-			}
-		});
+let actionElements = document.querySelectorAll("dialog button, dialog a");
+let actions = Array.from(actionElements.children);
+actions.forEach((action) => {
+	action.addEventListener("keydown", (evt) => {
+		if(evt.key === "Tab" && !evt.shiftKey) {
+			evt.preventDefault();
+			let elementToFocus = action.nextElementSibling ? action.nextElementSibling : actions[0];
+			elementToFocus.focus();
+		}
+		else if(evt.key === "Tab" && evt.shiftKey) {
+			evt.preventDefault();
+			let elementToFocus = action.previousElementSibling ? action.previousElementSibling : actions[actions.length-1];
+			elementToFocus.focus();
+		}
 	});
 });
