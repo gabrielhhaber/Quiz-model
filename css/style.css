@@ -28,6 +28,7 @@ h1 {
 main {
 	max-width: 800px;
 	margin: auto;
+	margin-bottom: 50px;
 }
 
 /* pergunta */
@@ -151,6 +152,26 @@ ul.answers-list {
 	cursor: pointer;
 }
 
+#end-game-dialog {
+	border: solid 2px #00cc00;
+	transition: all .5s;
+	margin-bottom: 200px;
+}
+
+#end-game-dialog p {
+	text-align: center;
+}
+
+#end-game-dialog a {
+	text-decoration: none;
+	line-height: 170%;
+	font-weight: 700;
+}
+
+#end-game-dialog a:hover {
+	text-decoration: underline;
+}
+
 #end-game-btn {
 	appearance: button;
 	background-color: black;
@@ -161,6 +182,10 @@ ul.answers-list {
 	transition: all .3s;
 	max-width: 150px;
 	text-decoration: none;
+}
+
+#end-game-btn a {
+	color: white;
 }
 
 #end-game-btn:hover {
